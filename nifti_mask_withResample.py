@@ -17,8 +17,8 @@ import SimpleITK as sitk
 class VOI_to_nifti_mask(ParseVOI):
 
     def __init__(self):
-        self.anonymize_database = r'M:/Stephanie_Harmon/Projects_MRI/test_new_anon_pipeline'
-        self.databases=['batch4']
+        self.anonymize_database = r'/path'
+        self.databases=['/folder_with_data_in_path']
         self.resample = True  # this flag will make a directory with resampled images to 1x1x1
 
 
@@ -119,7 +119,7 @@ class VOI_to_nifti_mask(ParseVOI):
         img_out = sitk.GetImageFromArray(numpy_mask)
         img_out.CopyInformation(image)
         os.chdir(mask_dir)
-        sitk.WriteImage(img_out, type.split('.')[0]+'.nii')
+        sitk.WriteImage(img_out, type.split('.')[0]+'.nii.gz')
 
         if self.resample == True:
             new_spacing = [1, 1, 1]
@@ -143,7 +143,7 @@ class VOI_to_nifti_mask(ParseVOI):
             new_image = sitk.GetImageFromArray(new_arr)
             new_image.CopyInformation(image_resamp)
 
-            sitk.WriteImage(new_image, type.split('.')[0] + '_resampled.nii')
+            sitk.WriteImage(new_image, type.split('.')[0] + '_resampled.nii.gz')
 
 
 
